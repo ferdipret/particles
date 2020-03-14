@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "parcel src/index.html"
+  }
+}
