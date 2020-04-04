@@ -8,7 +8,7 @@ import { Particle } from './components/Particle'
 
 interface Options {
   backgroundColor?: string
-  particleColor?: string
+  particleColor?: string | string[]
   particleSize?: number
   particleCount?: number
 }
@@ -17,8 +17,8 @@ const initialize = (options: Options) => {
   const {
     backgroundColor,
     particleColor,
-    particleSize = 1,
-    particleCount = 1,
+    particleSize = 5,
+    particleCount = 50,
   } = options
   const canvas = createCanvas()
   const canvasContext2d = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -34,7 +34,7 @@ const initialize = (options: Options) => {
     particleSize,
   }
 
-  for (let i = 0; i < particleCount * 10; i++) {
+  for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle(particleOptions))
   }
 
@@ -47,8 +47,6 @@ const initialize = (options: Options) => {
 }
 
 initialize({
-  backgroundColor: '#272727',
+  backgroundColor: '#1f222d',
   particleColor: 'white',
-  particleSize: 0.5,
-  particleCount: 10,
 })

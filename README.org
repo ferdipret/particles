@@ -1,0 +1,16 @@
+#+NAME: Configuration Options
+#+BEGIN_SRC typescript
+interface Options {
+  particle?: Particle
+}
+
+interface Background {
+  isFullscreen?: boolean
+  color?: string
+}
+
+interface Particle {
+  color?: string | string[]
+  size?: number | [number, number]
+}
+#+END_SRC

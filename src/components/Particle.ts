@@ -4,12 +4,12 @@ import { Point, StartingCoords, Arc } from '../types'
 interface ParticleOptions {
   canvas: HTMLCanvasElement
   particleSize?: number
-  fillStyle?: string
+  fillStyle?: string | string[]
 }
 
 function getSpeed() {
   const direction = Math.random() > 0.5 ? 1 : -1
-  const minimumSpeed = 0.1
+  const minimumSpeed = 0.01
   const speed = 1 * Math.random()
 
   return speed > minimumSpeed ? speed * direction : minimumSpeed * direction
@@ -23,15 +23,34 @@ class Particle {
   xPosUpdate = getSpeed()
   yPosUpdate = getSpeed()
 
-  constructor({ canvas, particleSize = 1, fillStyle }: ParticleOptions) {
+  constructor({
+    canvas,
+    particleSize = 5,
+    fillStyle: initialFillStyle = 'black',
+  }: ParticleOptions) {
     const [x, y] = getRandomXYPosition(canvas)
+    const randomParticleSize =
+      Math.floor(Math.random() * particleSize * 100) / 100
+    const particleSizeToUse =
+      randomParticleSize >= 0.5 ? randomParticleSize : 0.5
+    const fillStyle =
+      initialFillStyle && typeof initialFillStyle === 'string'
+        ? initialFillStyle
+        : initialFillStyle[Math.floor(Math.random() * initialFillStyle.length)]
+
     this.canvas = canvas
     this.canvasContext2d = canvas.getContext('2d') as CanvasRenderingContext2D
 
     this.state = {
       point: {
-        fillStyle: fillStyle || 'black',
-        arc: numericTuple<Arc>(x, y, particleSize, 0 * Math.PI, 2 * Math.PI),
+        fillStyle,
+        arc: numericTuple<Arc>(
+          x,
+          y,
+          particleSizeToUse,
+          0 * Math.PI,
+          2 * Math.PI
+        ),
       },
     }
 
